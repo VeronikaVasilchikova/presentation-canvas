@@ -59,12 +59,12 @@ Before we start drawing I want to talk about the canvas grid or coordinate space
 
 ## Draw elements to a canvas
 With the context we can draw the following:
-•	rectangles
-•	lines
-•	paths
-•	text
-•	images
-•	animation
+ *	rectangles
+ *	lines
+ *	paths
+ *	text
+ *	images
+ *	animation
 *(Slide 5)*
 
 ### Drawing rectangles
