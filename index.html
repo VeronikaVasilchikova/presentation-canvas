@@ -1,0 +1,427 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>An introduction to CANVAS</title>
+
+		<!--
+		<link rel="stylesheet" href="css/reset.css">
+		-->
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<!--
+		<link rel="stylesheet" href="lib/css/monokai.css">
+		-->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<section>
+						<h1>canvas</h1>
+						<img src="./img/canvas-html5.png">
+					</section>
+					<section>
+						<p>This is an HTML5 element which can be used to draw graphics via scripting
+							(usually <a href="https://ru.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>)
+							on the fly.
+						</p>
+					</section>
+					<section>
+						<h2>Examples</h2>
+						<ul style="margin: 0 auto; padding-left: 0; display: flex; justify-content: flex-start; list-style: none; text-align: center;">
+							<li>draw graphs <img src="./img/examples_draw_graphs.jpg" alt="draw_graphs"> </li>
+							<li>combine photos <img src="./img/examples_combine_photos.jpg" alt="combine_photos"> </li>
+							<li>animations <img src="./img/examples_animation.gif" alt="animation"> </li>
+						</ul>
+					</section>
+				</section>
+
+
+				<section>
+					<h3>Let’s start!</h3>
+					<img src="./img/practice.jpg" alt="practice">
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Basic usage of canvas</h3>
+						<p>To start a canvas project, we will need an HTML file and a Javascript file</p>
+						<pre style="white-space: pre-wrap; word-break: break-word;">
+							<code>
+								<canvas id="first-canvas" width="300" height="150"></canvas>
+								<script src="script.js"></script>
+							</code>
+						</pre>
+						<p>Canvas attributes: width and height are optional</p>
+					</section>
+					<section>
+						<p>You don’t see anything on the page because the canvas is an invisible element.</p>
+						<img src="./img/empty-canvas.png" alt="empty-canvas">
+					</section>
+					<section>
+						<p>Let’s add some style with CSS:</p>
+						<p>style.css</p>
+						<pre style="white-space: pre-line; word-break: break-word; line-height: 0.8em;">
+							<code>
+								#first-canvas {
+									border: 1px solid lightblue;
+									position: absolute;
+									top: 30px;
+									left: 0;
+									right: 0;
+									bottom: 0;
+									background-color: lightblue;
+								}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p>Here is a result</p>
+						<img src="./img/result-one.png" alt="result-one">
+					</section>
+					<section>
+						<p>script.js</p>
+						<pre style="white-space: pre-wrap; word-break: break-word; line-height: 0.8em;">
+							<code style="padding: 0; max-height: 680px;">
+								const draw = () => {
+									// Get canvas-element
+									const canvas = document.getElementById('first-canvas');
+
+									// Checking for support
+									if(canvas.getContext) {
+										// Get a context from the canvas
+										const ctx = canvas.getContext('2d');
+									} else {
+										console.log('canvas is not supported');
+									}
+								}
+								document.body.addEventListener('load', draw());
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<h3>The canvas grid</h3>
+					<img src="./img/canvas-grid.jpeg">
+				</section>
+
+				<section>
+					<h3>Draw elements to a canvas</h3>
+					<p>We have several methods to do so. We can draw:</p>
+					<ul>
+						<li>rectangles</li>
+						<li>lines</li>
+						<li>paths</li>
+						<li>text</li>
+						<li>images</li>
+						<li>animation</li>
+					</ul>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Drawing rectangles</h3>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								ctx.fillStyle = 'orange'; // property which change a fill color
+								ctx.fillRect(215, 190, 220, 220); // draw rectangle - x, y, width, height
+								ctx.fillStyle = 'violet';
+								ctx.fillRect(280, 250, 40, 40);
+								ctx.fillRect(325, 250, 40, 40);
+								ctx.fillRect(280, 295, 40, 40);
+								ctx.fillRect(325, 295, 40, 40);
+								ctx.strokeStyle = 'tomato'; // property which change a stroke color
+								ctx.strokeRect(280, 250, 85, 85);
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>result</h3>
+						<img src="./img/result-two.png" alt="result-two">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Drawing a triangle</h3>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								ctx.beginPath(); // create a new path
+								ctx.fillStyle = 'tomato'; // set a color
+								ctx.moveTo(215, 190); // set the first point
+								ctx.lineTo(325, 50); // draw the first line
+								ctx.lineTo(435, 190); // draw the second line
+								ctx.fill(); // draw a solid shape by filling the path's content area
+							</code>
+						</pre>
+					</section>
+					<section>
+						<img src="./img/result-three.png" alt="result-three">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Drawing quadratic curves</h3>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								ctx.beginPath();
+								ctx.fillStyle = 'green';
+								ctx.moveTo(0, 500); //start
+								ctx.quadraticCurveTo(250, 300, 800, 500); // 250, 300 - control point; 800, 500 - end point
+								ctx.fill(); // default color - black
+							</code>
+						</pre>
+					</section>
+					<section>
+						<img src="./img/result-four.png" alt="result-four">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Drawing a circle</h3>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								// draw circle
+								ctx.beginPath();
+								ctx.fillStyle = 'yellow';
+								ctx.arc(650, 80, 50, 0, 360, false); // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+								ctx.fill();
+								// draw lines
+								ctx.beginPath();
+								ctx.strokeStyle = 'yellow';
+								ctx.lineWidth = 5;
+								ctx.lineCap = 'round';
+								ctx.moveTo(590, 80);
+								ctx.lineTo(540, 80);
+								ctx.stroke();
+								ctx.moveTo(600, 130);
+								ctx.lineTo(540, 160);
+								ctx.stroke();
+								ctx.moveTo(650, 150);
+								ctx.lineTo(650, 200);
+								ctx.stroke();
+								ctx.moveTo(700, 120);
+								ctx.lineTo(750, 150);
+								ctx.stroke();
+								ctx.moveTo(720, 80);
+								ctx.lineTo(770, 80);
+								ctx.stroke();
+							</code>
+						</pre>
+					</section>
+					<section>
+						<img src="./img/result-five.png" alt="result-five">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Text</h3>
+						<p>Drawing text is similar to rectangles. You have 2 methods</p>
+						<ul>
+							<li>fillText(text, x, y)</li>
+							<li>strokeText(text, x, y)</li>
+						</ul>
+					</section>
+					<section>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								ctx.clearRect(0, 0, 800, 500);
+								ctx.font = '148px Courier New';
+	    						ctx.fillStyle = "red";
+								ctx.fillText('Canvas', 100, 150);
+								ctx.strokeStyle = "violet";
+								ctx.strokeText('Canvas', 150, 300);
+							</code>
+						</pre>
+					</section>
+					<section>
+						<img src="./img/text.png" alt="text">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Work with images</h3>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								ctx.drawImage(image, dx, dy);
+								ctx.drawImage(image, dx, dy, dWidth, dHeight);
+								ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+							</code>
+						</pre>
+					</section>
+					<section>
+						<img src="./img/crop-image.gif">
+						<p>Image credits: <a href="https://cheezburger.com/4406785536/classic-valentines-day-lover" target="_blank">https://cheezburger.com/4406785536/classic-valentines-day-lover</a></p>
+					</section>
+					<section>
+						<img src="./img/image-with-girl-marks.png">
+					</section>
+					<section>
+						<p>script.js</p>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								const ctx = canvas.getContext('2d');
+								const image = new Image();
+								image.src = '../pictures/image-with-girl.jpg';
+								image.onload = () => {
+        							context.drawImage(image, 0, 0);
+      							};
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p>Result</p>
+						<img src="./img/image-with-girl-first.png">
+					</section>
+					<section>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								const ctx = canvas.getContext('2d');
+								const image = new Image();
+								image.src = './pictures/image-with-girl.jpg';
+								image.onload = () => {
+								ctx.drawImage(image, 0, 100, 187, 336, 300, 90, 187, 336);
+								};
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p>Result</p>
+						<img src="./img/image-with-girl-second.png">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>Animation</h3>
+						<img src="./img/mario.gif">
+					</section>
+					<section>
+						<img src="./img/mario.png">
+					</section>
+					<section>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								const canvas = document.getElementById('first-canvas');
+      							const ctx = canvas.getContext('2d');
+      							const MARIO_WIDTH = 32;
+      							const MARIO_HEIGHT = 32;
+      							const mario = new Image();
+      							mario.src = './pictures/mario.png';
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre style="white-space: pre-line; word-break: break-word;">
+							<code>
+								let currentFrame = 0;
+
+      							const update = () => {
+									ctx.clearRect(0, 0, 800, 500);
+									ctx.drawImage(
+									  mario,
+									  (MARIO_WIDTH * (Math.floor(currentFrame) % 8)),
+									  0,
+									  MARIO_WIDTH,
+									  MARIO_HEIGHT,
+									  350,
+									  250,
+									  MARIO_WIDTH,
+									  MARIO_HEIGHT
+									);
+									currentFrame += 0.2;
+									requestAnimationFrame(update);
+								};
+								update();
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>result</h3>
+						<img src="./img/mario.gif">
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h3>More examples of using canvas</h3>
+					</section>
+					<section>
+						<img src="./img/example-one.gif">
+						<p>Example of an HTML canvas project: <a href="https://dollarakshay.com/particles.html" target="_blank">https://dollarakshay.com/particles.html</a></p>
+					</section>
+					<section>
+						<img src="./img/example-two.gif">
+						<p>Example of an HTML canvas project: <a href="https://humaan.com/blog/canvas-swarm-javascript/" target="_blank">https://humaan.com/blog/canvas-swarm-javascript/</a></p>
+					</section>
+					<section>
+						<img src="./img/result-six.gif" alt="result-six">
+						<p>Sources:</p>
+						<a href="https://www.w3schools.com/graphics/canvas_intro.asp" target="_blank">https://www.w3schools.com/graphics/canvas_intro.asp</a>
+						<a href="https://www.youtube.com/channel/UC9Yp2yz6-pwhQuPlIDV_mjA" target="_blank">https://www.youtube.com/channel/UC9Yp2yz6-pwhQuPlIDV_mjA</a>
+						</p>
+					</section>
+				</section>
+
+
+				<section>
+					<h3>Browser support</h3>
+					<img src="./img/caniuse.png">
+				</section>
+
+				<section>
+					<h2>Thank you for your attention!</h2>
+					<img src="./img/thanks.png">
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
